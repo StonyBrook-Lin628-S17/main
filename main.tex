@@ -1,0 +1,49 @@
+%=================================================================
+%				preamble
+%=================================================================
+\documentclass[11pt,letterpaper]{book}
+
+\newcommand{\theauthor}{Thomas Graf}
+\newcommand{\lastname}{Graf}
+\newcommand{\university}{Stony Brook University}	
+\newcommand{\emailaddress}{lin628@thomasgraf.net}
+\newcommand{\coursenumber}{Lin 628}
+\newcommand{\coursename}{Computational Syntax}
+\newcommand{\semester}{Spring 2017}
+\newcommand{\thetitle}{\texorpdfstring{%
+            {\Huge \coursename}\\
+            \semester}%
+            {\coursename\ [\coursenumber, \semester]}}
+\newcommand{\thekeywords}{graduate level, lecture, computational linguistics, phonology, syntax}
+\newcommand{\thedate}{}
+
+\usepackage{mypackages}
+\usepackage{mycommands}
+
+
+%=================================================================
+%			title format
+%=================================================================
+\author{\theauthor}
+\title{\thetitle}
+\date{\thedate}
+
+%=================================================================
+%			content
+%=================================================================
+
+\pagestyle{empty}
+\begin{document}
+\maketitle
+\raggedbottom
+\pagenumbering{Roman}
+\tableofcontents
+\clearpage
+
+\pagestyle{fancy}
+\include{./tex/syllabus}
+\pagenumbering{arabic}
+
+\bibliographystyle{./bib/linquiry3}
+\bibliography{./bib/universal,./bib/graf}
+\end{document}

@@ -1,0 +1,151 @@
+\setcounter{chapter}{-1}
+\chapter{Syllabus}
+\label{cha:syllabus}
+\setcounter{page}{1}
+
+\fcolorbox{gray!25}{gray!25}{%
+    \centering
+    \begin{tabular}{ll}
+        \textbf{Course:} Computational Syntax&
+        \textbf{Name:} Thomas Graf\\
+        \textbf{Course\#:} Lin628 &
+        \textbf{Email:} \href{mailto:lin628@thomasgraf.net}{lin628@thomasgraf.net}\\
+        \textbf{Time:} TR 10:00--11:20am (changes tbd) &
+        \textbf{Office hours:} tba \\
+        \textbf{Location:} SBS N117 &
+        \textbf{Office:} SBS N249\\
+        \textbf{Course Website:} \href{http://lin628.thomasgraf.net} {lin628.thomasgraf.net} &
+        \textbf{Personal Website:} \href{http://thomasgraf.net}{thomasgraf.net}
+    \end{tabular}
+}
+
+\section{Course Outline}
+
+\subsection{Bulletin Description}
+
+An in-depth survey of natural language syntax from a computational perspective.
+The primary focus is on combining state-of-the-art techniques from formal language theory with empirical insights from linguistic theory.
+Topics covered vary by year and may include tree transducers, logics for tree description, weak and strong generative capacity of natural language, lexicalized grammar formalisms, unification grammars, or the expressivity of probabilistic formalisms.
+
+
+\subsection{Full Description}
+
+The goal of this class is to develop a computational toolkit that is expressive enough to accommodate all of syntax without becoming computationally intractable.
+We will start out with $n$-gram models over strings and see that they fail this criterion even if probabilities are added to the model.
+From there we move up to (weighted) finite-state string automata, (probabilistic) context-free grammars, and so on, until we finally converge on first-order logic and restricted macro tree transducers as a lingua franca for syntax.
+While moving along this vertical axis of expressivity, we will also explore the range of options horizontally by looking at different encodings of syntactic dependencies, e.g.\ features vs constraints, slash-percolation vs movement, and phrase structure trees vs derivation trees.
+We will see that a computationally informed perspective provides the necessary degree of abstraction to develop a unified perspective of diverse grammar formalisms such as Minimalism, Government and Binding, GPSG, TAG, and Construction Grammar.
+
+The course will benefit syntacticians who are curious about the connections between various formalisms (GPSG, CCG, MGs, TAG, linear LFG, Dependency Grammar, Relational Grammar) as well as natural language engineers that want to work with more sophisticated formalisms than context-free grammars.
+We will follow a lecture format with weekly homeworks and a large number of assigned readings; you should expect a larger time commitment than usual for a linguistics class.
+That said, proofs, theorems, and mathematics in general will be kept to a minimum, with an emphasis on hands-on modelling. Therefore the only hard prerequisite is a basic familiarity with syntax, comparable to what is covered in an undergraduate syntax class.
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{rl}
+        \toprule
+        \emph{Wk} & \emph{Topic} \\
+        \toprule
+        1         & Big picture, $n$-gram models\\
+        2         & The insufficiency of finite-state string methods\\
+        3         & Probabilities do not help\\
+        4         & Dependencies and constituency as strictly local tree languages\\
+        5         & Linear transductions from dependency trees to phrase structure trees\\
+        6         & Adding AVMs without grammar blow-up\\
+        7         & Constraints and their relation to subcategorization\\
+        \midrule
+        8         & (spring break)\\
+        \midrule
+        9         & Displacement with and without movement, multi bottom-up transductions\\
+        10        & Extended tree transductions for idioms and CGx-style constructions\\
+        11        & TAG-style adjunction, Late Merge, and their connection to lowering movement\\
+        12        & Macro tree transducers and monadic second-order logic as a \emph{lingua franca}\\
+        13        & Weighted tree transductions and how to learn them\\
+        14        & Towards weaker models\\
+        15        & Summary, Q\&A\\
+        \bottomrule
+    \end{tabular}
+\caption{Tentative course outline}
+\end{table}
+
+\subsection{Prerequisites}
+
+This course presupposes basic familiarity with generative syntax as is usually acquired in \emph{Syntax 1}.
+It is also useful to have some general mathematical maturity, e.g.\ by having taken \emph{Mathematical Methods in Linguistics} or \emph{Statistics}.
+Finally, it is recommended to have taken \emph{Computational Linguistics 2} or to attend it in parallel with this course.
+
+
+\section{Learning Outcomes}
+\begin{itemize}
+    \item working knowledge of a variety of tree transducer types and their capabilities (top-down, bottom-up, linear, extended, multi bottom-up, macro tree transducer)
+    \item ability to reinterpret linguistic concepts in computational terms
+    \item assess linguistic phenomena from a computational perspective
+    \item use computational concepts to identify new empirical generalizations
+    \item formulate new syntactic analyses by combining existing computational techniques
+    \item apply theory-heavy techniques to practical problems such as machine translation
+\end{itemize}
+
+
+\section{Grading}
+\begin{itemize}
+    \item \textbf{Readings}\\
+        Each week you have to prepare for the lecture by carefully going through the assigned readings.
+        You should expect to spend about 3 hours a week on readings.
+        %
+    \item \textbf{Homework}
+        \begin{itemize}
+            \item weekly exercises
+            \item Selected exercises will be discussed in class.
+            \item Collaboration on homework problems is encouraged.
+        \end{itemize}
+        %
+    \item \textbf{Final Paper}\\
+        Write a computational syntax paper.
+        You have to get my approval for your topic and your list of readings by the end of week 12. 
+        Possible topics include tree transducer implementations of specific pieces of syntactic machinery, computational analyses of empirical phenomena, a critical reply to an assigned paper, and much more (see the readings repository for other topics).
+        Your paper must be written in \LaTeX and adhere to the FG style requirements.
+        Ideally, you will only write a final paper if you have a project that you want to present at a conference or turn into a journal paper.
+        %
+    \item \textbf{Contributing to the Lecture Notes}\\
+        %
+        I usually produce extensive lecture notes for my classes, but unfortunately this takes a lot of time that I simply do not have this semester.
+        Instead, I will only produce rough drafts for the chapters and rely on you to flesh these out with nice prose, detailed examples, figures, tables, photos of researchers, jokes and so on.
+        There will be a dedicated playground repository to allow the whole class to work on the lecture notes collaboratively.
+        %
+    \item \textbf{Workload per Credits}
+        %
+        \begin{itemize}
+            \item \emph{1 credit}: regular attendance, readings, class participation
+            \item \emph{2 credits}: the above, plus doing all the homeworks
+            \item \emph{3 credits}: the above, plus writing a final paper or contributing to the lecture notes
+        \end{itemize}
+\end{itemize}
+
+\section{Policies}
+
+\subsection{Contacting me}
+\begin{itemize}
+    \item Emails should be sent to \href{mailto://lin628@thomasgraf.net}{lin628@thomasgraf.net} to make sure they go to my high priority inbox.
+        Disregarding this policy means late replies and is a sure-fire way to get on my bad side.
+    \item Reply time < 24h in simple cases, possibly more if meddling with bureaucracy is involved.
+    \item If you want to come to my office hours and anticipate a longer meeting, please email me so that we can set apart enough time and avoid collisions with other students.
+\end{itemize}
+
+\input{./tex/blabla.tex}
+
+\section{Selected Bibliography}
+
+All readings materials are available for download in the readings repository of the course website.
+
+\subsection{Required}
+\begin{itemize}
+    \item Lecture notes, available at \url{lin628.thomasgraf.net}
+    \item Müller, Stefan (in press): \emph{Grammatical Theory: From Transformational Grammar to Constraint-Based Approaches}. Language Science Press
+\end{itemize}
+
+\subsection{Supplementary}
+\begin{itemize}
+    \item Gécseg, Ferenc and Magnus Steinby (2015$^2$): \emph{Tree Automata}. \url{http://arxiv.org/abs/1509.06233}
+    \item Comon, Hubert et al. (2008): \emph{Tree Automata Techniques and Applications}. \url{https://gforge.inria.fr/frs/download.php/file/10994/tata.pdf}
+\end{itemize}
