@@ -1,6 +1,6 @@
 \ProvidesPackage{mycommands}
 
-\addto\captionsenglish{\renewcommand{\chaptername}{Lecture}}
+\addto\captionsenglish{\renewcommand{\chaptername}{Unit}}
 \addto\captionsenglish{\renewcommand{\bibname}{References and Further Reading}}
 \def\thesection{\arabic{section}}
 
@@ -213,9 +213,14 @@
 \newcommand{\TheoremSymbol}{\tikzset{external/export next=false}\tikz{\draw (0,0) -| (.5em,.5em);}}
 \theoremsymbol{\ensuremath{\TheoremSymbol}}
 \newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposal}{Proposal}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
+
+\theoremheaderfont{\normalfont\itshape}
+\theoremsymbol{\ensuremath{\bigodot}}
+\newtheorem{exercise}{Exercise}[chapter]
 
 \theorembodyfont{\normalfont\itshape}
 \theoremsymbol{}
