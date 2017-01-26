@@ -31,6 +31,13 @@ Course readings are made available through the private [readings repository] [re
 You must be enrolled in this class in order to get access.
 
 
+Playground
+----------
+
+If you want to contribute to the lecture notes, please do not file push requests against this repository.
+Instead, push your changes directly to the [playground][playground].
+
+
 Compilation Instructions
 ------------------------
 
@@ -79,6 +86,7 @@ Link List
 [department]: http://linguistics.stonybrook.edu
 [pdf]: ../../tree/master/pdf
 [readings]: ../../../readings
+[playground]: ../../../playground
 [sbu]: http://www.stonybrook.edu
 [survey]: https://testmoz.com/432409
 [syllabus]: ../../blob/master/pdf/00_syllabus.pdf?raw=true
