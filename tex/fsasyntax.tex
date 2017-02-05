@@ -1,0 +1,148 @@
+\chapter{The Problems of Finite-State Automata for Syntax}
+\label{cha:REGsyntax}
+
+For Tuesday, do 3.1, 3.2, and 3.4. The rest is optional.
+
+\begin{exercise}
+    Give a finite-state automaton that correctly handles Principle A for sentences of the form below:
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex[] {Mary likes herself.}
+            \ex[] {John likes himself.}
+            \ex[*] {The old woman likes himself.}
+            \ex[*] {The old, ugly fisherman likes herself.}
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex {John introduced himself\slash$^*$herself to himself\slash$^*$herself.}
+            \ex {John introduced himself\slash$^*$herself to him\slash her.}
+            \ex {John introduced him\slash her to himself\slash$^*$herself.}
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex {Mary thinks that Bill\slash Sue thinks that John likes himself\slash$^*$herself.}
+            \ex {Mary seems to Bill to appear to John to like herself\slash$^*$himself.}
+        \end{xlist}
+    \end{exe}
+\end{exercise}
+
+\begin{exercise}
+    How does your automaton need to be modified to also handle this sentence:
+    %
+    \begin{exe}
+        \ex The man that Mary says that she seems to like himself\slash$^*$herself.
+    \end{exe}
+\end{exercise}
+
+\begin{exercise}
+    Bavarian German has inflected complementizers.
+    This means that certain complementizers (sometimes optionally) agree in number and person with the subject of their clause.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex {\gll I sags da wann-st (du) dran bist.\\
+                      I tell.it you.\g{sg} when(-\g{2.sg}) (you) next are\\}
+            \ex {\gll I sags da wann(-st) du dran bist.\\
+                      I tell.it you.\g{sg} when(-\g{2.sg}) (you) next are\\}
+            \ex {\gll I sags euch wann-ts (es) dran seids.\\
+                      I tell.it you.\g{pl} when(-\g{2.pl}) (you) next are\\}
+            \ex {\gll I sags euch wann($^*$-ts) ihr dran seids.\\
+                      I tell.it you.\g{pl} when(-\g{2.pl}) you next are\\
+                 \glt `I'll tell you when you're next.'}
+        \end{xlist}
+    \end{exe}
+    %
+    Other inflected complementizers include \emph{wenn} `if` and for some speakers \emph{dass} `that`.
+    No other person-number combinations show inflection, only second person singular and plural does.
+    For second person plural, the subject must be \emph{es}, not the semantically equivalent \emph{ihr}.
+
+    Interesting things happen with coordinated subjects:
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex {\gll \ldots wenn(-st)\slash($^*$-ts) [du und die Maria] woll-ts\slash-en.\\
+                      \ldots if-\g{2.sg}\slash$^*$-\g{2.pl} [you.\g{sg} and the Mary] want-\g{2.pl}\slash-\g{3.pl}\\
+                 \glt `\ldots if you and Mary want to.'}
+            \ex {\gll \ldots wenn($^*$-st)\slash($^*$-ts) [die Maria und du] woll-ts\slash-en.\\
+                      \ldots if-\g{2.sg}\slash$^*$-\g{2.pl} [the Mary and you.\g{sg}] want-\g{2.pl}\slash-\g{3.pl}\\}
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex {\gll \ldots wenn-ts [es und die Maria] woll-ts\slash-en.\\
+                      \ldots if-\g{2.pl} [you.\g{pl} and the Mary] want-\g{2.pl}\slash-\g{3.pl}\\
+                 \glt `\ldots if you and Mary want to.'}
+            \ex {\gll \ldots wenn($^*$-ts) [die Maria und es] woll-ts\slash-en.\\
+                      \ldots if-\g{2.sg}\slash$^*$-\g{2.pl} [the Mary and you.\g{pl}] want-\g{2.pl}\slash$^*$-\g{3.pl}\\}
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex {\gll \ldots wenn($^*$-ts) [ihr und die Maria] woll-ts\slash$^*$-en.\\
+                      \ldots if-\g{2.pl} [you.\g{pl} and the Mary] want-\g{2.pl}\slash$^*$-\g{3.pl}\\
+                 \glt `\ldots if you and Mary want to.'}
+            \ex {\gll \ldots wenn($^*$-ts) [die Maria und ihr] woll-ts\slash$^*$-en.\\
+                      \ldots if-\g{2.sg}\slash$^*$-\g{2.pl} [the Mary and you.\g{pl}] want-\g{2.pl}\slash$^*$-\g{3.pl}\\}
+        \end{xlist}
+    \end{exe}
+
+    Agreement can also operate across intervening adverbs and dative arguments:
+    %
+    \begin{exe}
+        \ex {\gll Wenn-st gestern dem Hans (du) derart deppert kumm-st, brauch-st (du) di net wundern dass er di heut verarscht.\\
+                  If-\g{2.sg} yesterday the.\g{dat} Hans (you.\g{sg}) this stupid come-\g{2.sg}, need-\g{2.sg} (you.\g{sg}) SE not wonder that he you today mocks\\
+             \glt `If you acted like an idiot towards Hans yesterday, you shouldn't be surprised that he's mocking you today.'}
+    \end{exe}
+
+    Provide two finite-state automata, one for subject-verb agreement, and one for complementizer-subject agreement.
+    Together, they should correctly account for the contrasts noted above.
+    Then construct an automaton that enforces both agreement patterns.
+    Are the regularities of the original two automata easy to discern in this automaton?
+\end{exercise}
+
+\begin{exercise}
+    Icelandic allows long-distance agreement between subjects and the finite verb.
+    %
+    \begin{exe}
+        \ex {\gll Það voru konugi gefnar ambátt-ir í vettur.\\
+                  there were king.\g{dat} given slaves.\g{nom} in winter\\
+             \glt `Slaves were given to the king in the winter.}
+    \end{exe}
+    %
+    Surprisingly, long-distance agreement is optional in bi-clausal constructions.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex {\gll Einhverjum stúdent finnst tölvurnar ljótar.\\
+                      Some.\g{dat} student.\g{dat} finds.\g{sg} computers.\g{def.nom} ugly.\g{nom}\\}
+            \ex {\gll Einhverjum stúdent finnast tölvurnar ljótar.\\
+                      Some.\g{dat} student.\g{dat} finds.\g{pl} computers.\g{def.nom} ugly.\g{nom}\\
+                 \glt `Some student finds the computers ugly.'}
+        \end{xlist}
+    \end{exe}
+    %
+    And to complicate matters even further, a linearly intervening dative argument blocks long-distance agreement.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex[]  {\gll Það virðist einhverjum manni hestarnir vera seinir.\\
+                        There seems.\g{sg} some.\g{dat} man.\g{dat} horses.\g{def.nom} be slow.\g{nom}\\}
+            \ex[*] {\gll Það virðast einhverjum manni hestarnir vera seinir.\\
+                        There seems.\g{pl} some.\g{dat} man.\g{dat} horses.\g{def.nom} be slow.\g{nom}\\
+                    \glt `The horses seem slow to some man.'}
+        \end{xlist}
+    \end{exe}
+    %
+    Construct a finite-state automaton that captures the contrast above.
+    To simplify things, you may assume that every string contains exactly one finite verb and that nominative and dative arguments can be unambiguously identified based on their case suffix.
+\end{exercise}
+
+\begin{exercise}
+    At an abstract level, inflected complementizers in Bavarian German and Icelandic long-distance agreement seem very similar in that they both can operate locally or at a distance, and are sometimes optional.
+    Only the latter seems to be subject to a robust intervention effect, however.
+    Are these similarities and discrepancies readily apparent from the automata you drew in the previous exercises?
+\end{exercise}
