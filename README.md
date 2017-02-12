@@ -1,57 +1,172 @@
-Computational Syntax
-====================
+Computational Syntax: Playground Repository
+===========================================
 
 
 Overview
 --------
 
-This is the primary course website for Computational Syntax (Lin 628), offered by the [Department of Linguistics] [department] at [Stony Brook University] [sbu].
-For a brief list of topics, check the [syllabus] [syllabus].
+This is the playground repository for [Computational Syntax (Lin 628)](http://lin628.thomasgraf.net), offered by the [Department of Linguistics] [department] at [Stony Brook University] [sbu].
 
-This repository is publicly accessible and hosts the LaTeX source code for the lecture notes.
-Compiled pdfs of each chapter are available in the [pdf] [pdf] folder.
+This is a private repository where you can safely work collaboratively on the lecture notes.
 
 
-Prerequisites
--------------
+Repository Structure and Workflow
+---------------------------------
 
-This course assumes a certain degree of familiarity with generative syntax and basic mathematics (sets, functions, relations, first-order logic).
-Familiarity with formal language theory (string languages, rewrite grammars, automata, transducers) is very helpful but not required.
-In addition, you may have to use Python, markdown and LaTeX at various points during this course.
-The [link list](#link-list) at the end of this document has some useful tutorials.
+The repository has a number of branches:
 
-If you don't want to deal with installing Python and git, you can download our [virtual machine] [vm] that already comes with everything preconfigured.
-Access is restricted to Stony Brook affiliates.
+1. *raw* contains the source code for units pulled straight from the [main repository](http://lin628.thomasgraf.net).
+   Whenever a new unit is uploaded to the main repository, the student with role **master** pushes it into the *raw*-branch of this repository.
+1. There is a number of feature-branches, e.g. *tikz*, *examples*, and so on.
+   In each branch, one or more students work on a specific aspect of the lecture notes.
+   Once they consider a task done, they file a push request against the branch *draft*.
+1. The student with role **master** approves push requests and merges them into *draft*.
+   He or she also compiles a pdf version of that unit.
+   If compilation fails, the **master** contacts the students whose pull request created the problem and asks them to fix their code.
+1. The **reader** and the **editor** read the draft version and jointly decide how to proceed: is the unit good as is, does the existing material need revisions, or is crucial material missing?
+   Stylistic revisions and minor additions are handled by the editors in the *editorial* branch (with a subsequent pull request against *draft*), major changes have to be made by the students working on the relevant feature.
+   (Never work directly on files in draft! It will make it much harder to resolve merge conflicts during pull requests.)
+1. Once a draft version has full approval from the reader and the editor, the master merges it into the master branch.
 
 
-Readings
---------
-
-Course readings are made available through the private [readings repository] [readings].
-You must be enrolled in this class in order to get access.
-
-
-Playground
+Team Roles
 ----------
 
-If you want to contribute to the lecture notes, please do not file push requests against this repository.
-Instead, push your changes directly to the [playground][playground].
+-  *Hammer*: quickly hammers out a rough draft that indicates the overall structure and content of the unit; this includes
+    - splitting the content into sections,
+    - inserting (rough versions of) definitions, theorems,
+    - indicating what examples, figures and tables need to be created,
+    - adding some very basic text to link all of that together.
+   Imagine a bullet-point handout where complicated typesetting is left to another party.
+
+- *Sandpaper*: takes the output produced by the hammer and sands off the rough edges; this includes
+    - complete prose text as in a textbook, but without particular attention to style, spelling, or grammar
+    - extending the specifications as to what needs to be added by other contributors
+    - ensuring that all the Latex code up to this point is free of mistakes that prevent compilation
+
+- *Exerciser*: thinks of exercises and adds them to the lecture notes; ideally, this student will handle all the typesetting associated with exercises, but they may ask the *artist* for help with figures
+
+- *Solver*: writes up the solutions to all exercises; again, this student should handle all of the typesetting related to solutions on their own, though they may ask the *artist* for help with figures
+
+- *Artist*: creates figures and trees as directed by *hammer* and *sandpaper*, but may also help the *exerciser* and *solver*; trees should be typeset with forest, figures with tikz; it is important to write clean, reusable tikz code (styles, relative node placement, foreach loops)
+
+- *Editor*: reads the draft version produced from by team members with one of the previous 5 roles and revises it with an eye towards clarity and style
+
+- *Reader*: reads the draft version, points out if some passages are unclear, and relays that information to the editor with suggestions for improvements
+
+- *Master*: manages the playground repository; this means distributing files as necessary, merging in changes, ensuring that team members follow the repository policies, and helping out with git-related problems
+
+- *Whip*: manages the workflow of the entire team; this includes
+   - working out task interdependencies (e.g. a figure cannot be completed until the example has been fully specified),
+   - setting deadlines for certain tasks based on these interdependencies
+   - distributing the workload between team members
+   - aiding communication between team members
+   - anything else that is needed to keep the group working like a well-oiled machine
 
 
-Compilation Instructions
-------------------------
+Role Assignments 
+----------------
 
-If you want to compile the lecture notes yourself, or use them as the basis for your own course, carefully follow the steps below.
+| Role      | Student         | 
+| --:       | :--             | 
+| Whip      | Hwichan         | 
+| Master    | Aniello         | 
+| Editor    | Jon             | 
+| Reader    | Sophie          | 
+| Hammer    | Jimmy, So Young | 
+| Sandpaper | Jimmy, So Young | 
+| Artist    | Alëna           | 
+| Exerciser | Logan           | 
+| Solver    | Hongchen, Lei   | 
 
-1) Make sure you have all necessary software installed and set up correctly, in particular
 
-  - a recent LaTeX distribution with _Tikz_ >= 3.00 and recent versions of _minted_ and _forest_
-  - the Python pygments package (required by minted)
+Essential Git Commands
+----------------------
 
-2) Clone the repository via git, or download and extract the [zip file](../../archive/master.zip).
- Note that the project folder will also contain an empty _build_ folder, which is used for temporary files to speed up compilation.
+-  Clone playground repository
 
-3) Use the standard tex --> pdf compilation tool chain (**not** tex --> dvi --> ps --> pdf!), but make sure that pdflatex is run with the parameters --shell-escape and --etex.
+    ~~~bash
+    git clone https://github.com/CompLab-StonyBrook/mgproc.git
+    ~~~
+
+-  Get most recent version of branch <branch>
+
+    ~~~bash
+    git pull origin <branch>
+    ~~~
+
+-  Create new branch <feature>:
+
+    ~~~bash
+    git branch <feature>
+    ~~~
+
+-  Show current branch (marked by asterisk):
+
+    ~~~bash
+    git branch
+    ~~~
+
+-  Switch to branch <feature>:
+
+    ~~~bash
+    git checkout <feature>
+    ~~~
+
+-  Update current branch to the most recent commit in <branch>:
+
+    ~~~bash
+    git merge <branch>
+    ~~~
+
+   This is useful to bring in new files.
+
+-  As before, but if there is a merge conflict, prefer our version:
+
+    ~~~bash
+    git merge -s recursive -X ours <branch>
+    ~~~
+
+   With proper workflow procedure, this makes it easy to bring in new files from *raw*.
+
+-  As before, but if there is a merge conflict, prefer the version from the other branch:
+
+    ~~~bash
+    git merge -s recursive -X theirs <branch>
+    ~~~
+
+   Useful if a unit has been completed and you want to update all files to the revised version in master.
+
+ 
+-  Stage specific files <file1>, <file2>, ..., <filen> that have been changed:
+
+    ~~~bash
+    git add <file1> <file2> ... <filen>
+    ~~~
+
+-  Stage all changed files:
+
+    ~~~bash
+    git add .
+    ~~~
+
+-  Check status of local repository:
+
+    ~~~bash
+    git status
+    ~~~
+
+-  Commit staged files:
+
+    ~~~bash
+    git commit
+    ~~~
+
+-  Pushing your changes to remote branch <feature>:
+
+    ~~~bash
+    git push origin <feature>
+    ~~~
 
 
 Link List
