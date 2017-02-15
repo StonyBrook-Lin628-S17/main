@@ -32,7 +32,7 @@
 \usepackage[T1]{fontenc}	% scalable EC fonts
 \usepackage{tipx}
 \usepackage[bitstream-charter]{mathdesign}% math fonts matched for charter, garamond, times, utopia
-\DeclareMathAlphabet{\mathsc}{T1}{mdbch}{m}{fsc}
+% \DeclareMathAlphabet{\mathsc}{T1}{mdbch}{m}{fsc}
 \usepackage{skull}  % for a dangerous skull
 \usepackage{bbding} % for checkmarks and failures
 \usepackage{pifont}
@@ -48,6 +48,10 @@
 %=================================================================
 %			glosses
 %=================================================================
+% as usual gb4e's shitty code fucks something up that we need to fix
+\makeatletter
+\def\new@fontshape{}
+\makeatother
 \usepackage{gb4e}
 \noautomath
 \makeatletter
