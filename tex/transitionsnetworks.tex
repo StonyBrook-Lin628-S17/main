@@ -1,0 +1,197 @@
+\chapter{Automata as Transition Networks}
+\label{cha:REGsyntax}
+
+\begin{exercise}
+    Optionality is often very easy to handle with finite-state automata, as is the case with iterable adverbs:
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex John likes Mary.
+            \ex John really likes Mary.
+            \ex John really, really likes Mary.
+            \ex John really, really, really likes Mary.
+        \end{xlist}
+    \end{exe}
+    %
+    Sentence-final optionality (or what looks like optionality) is also readily accounted for.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex[]  {John ate the pasta.}
+            \ex[]  {John ate.}
+            \ex[]  {John devoured the pasta.}
+            \ex[*] {John devoured.}
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex[]  {The Bride wants Bill dead.}
+            \ex[]  {The Bride wants Bill.}
+            \ex[]  {The player looked the opponent off.}
+            \ex[*] {The player looked the opponent.}
+        \end{xlist}
+    \end{exe}
+    %
+    Draw epsilon-free automata for sentences of this form (an automaton is epsilon-free iff no transition is labeled with the empty string $\emptystring$).
+    Do not use transition networks to represent the automata more succinctly.
+\end{exercise}
+
+\begin{exercise}
+    Continuing the previous exercise, consider now the following apparent case of optionality:
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex Who might John like and may his friend from many years ago hate?
+            \ex Who might John like and his friend from many years ago hate?
+            \ex Who might John like and hate?
+        \end{xlist}
+    \end{exe}
+    %
+    Draw an epsilon-free automaton that correctly handles the sentences above and other cases with reasonably complex subject NPs (proper names, pronouns, various determiners, adjectives, PP modifiers, but no relative clauses).
+    Do not use a transition network to represent the automaton more succinctly.
+    Is this case as easily handled as previous instances of optionality?
+    What might be the explanation for this?
+\end{exercise}
+
+\begin{exercise}
+    Now draw an automaton for the same pattern, but with $\emptystring$-transitions where appropriate.
+    Which one of the two seems preferable to you?
+    Explain why.
+\end{exercise}
+
+\begin{exercise}
+    Still continuing the previous exercise, give a transition network for the same pattern such that all automata are epsilon-free.
+    Remember that we can pop out of a sub-automaton whenever we are in an empty state.
+    How does your transition network fare in comparison to the two automata from the previous exercise?
+\end{exercise}
+
+\begin{exercise}
+    Specifying finite-state automata via transition networks is not without downsides.
+    So far, we saw that the transition network can be compiled out into a finite-state automaton as long as limit cycles.
+    The procedure is simple: if we have an arc labeled $A$ from state $q$ to $q'$, replace that arc with sub-automaton $A$. 
+    %
+    \begin{center}
+        \begin{tikzpicture}
+            % main automaton
+            \node[state] (q) at (0,0) {$q$};
+            \node[state] (q') [right=of q] {$q'$};
+            \node[state] (other) [right=of q'] {$q''$};
+
+            \foreach \Source/\Target/\Label in {q/q'/$A$, q'/other/$\sigma$}
+                \draw[->] (\Source) to node [above] {\Label} (\Target);
+
+            % subautomaton
+            \node[state] (a1) [below=2em of q] {$A1$};
+            \node[state] (a2) [right=of a1] {$A2$};
+            \node[state,accepting] (a3) [right=of a2] {$A3$};
+            \node[state] (a4) [below=of a2] {$A4$};
+
+            \foreach \Source/\Target/\Label/\Placement in {%
+                a1/a2/$a$/above,
+                a2/a3/$b$/above,
+                a2/a4/$c$/left,
+                a4/a3/$d$/below%
+                }
+                \draw[->] (\Source) to node [\Placement] {\Label} (\Target);
+        \end{tikzpicture}
+
+        \bigskip
+
+        \begin{tikzpicture}
+            % main automaton
+            \node[state] (q) at (0,0) {$q$};
+            \node[state] (b) [right=of q] {$A2$};
+            \node[state] (d) [below=of b] {$A3$};
+            \node[state] (q') [right=of b] {$q'$};
+            \node[state] (other) [right=of q'] {$q''$};
+
+            \foreach \Source/\Target/\Label/\Placement in {%
+                q/b/$a$/above,
+                b/q'/$b$/above,
+                b/d/$c$/left,
+                d/q'/$d$/above,
+                q'/other/$\sigma$/above%
+                }
+                \draw[->] (\Source) to node [\Placement] {\Label} (\Target);
+        \end{tikzpicture}
+    \end{center}
+    
+    But there are side effects.
+    Show that compiling out a transition network of deterministic automata may yield a non-deterministic automaton.
+
+    \emph{Hint:} A minor modification to the example above is sufficient to produce a non-deterministic automaton.
+\end{exercise}
+
+Since determinizing a non-deterministic automaton with $n$ states may produce an automaton with $2^n$ states in the worst case, this shows just how succinct a description format transition networks are.
+
+\begin{exercise}
+    The simple algorithm for compiling out transition networks is also lacking in efficiency, and often one can construct a more efficient automaton by hand.
+    But the gain in efficiency comes at the cost of clarity and generality.
+
+    Consider the well-known NP\slash PP alternation with ditransitive verbs in English:
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex John gave the woman the book.
+            \ex John gave the book to the woman.
+        \end{xlist}
+    \end{exe}
+    %
+    Arguably the most natural account is depicted by the transition network below.
+    %
+    \begin{center}
+        \begin{tikzpicture}
+            \node[state,initial] (0) at (0,0) {0};
+            \foreach \State/\Label/\Style [remember=\State as \previous (initially 0)] in {%
+                1/NP/,
+                2/V/,
+                3/NP/,
+                4/NP/accepting%
+                }
+                {
+                \node[state,\Style] (\State) [right=of \previous] {\State};
+                \draw[->] (\previous) to node [above] {\Label} (\State);
+                }
+                \draw[->,bend right] (3) to node [below] {PP} (4);
+            
+            \node[state,initial] (PP0) [below=of 0]   {PP0};
+            \foreach \State/\Label/\Style [remember=\State as \previous (initially 0)] in {%
+                1/P/,
+                2/NP/accepting%
+                }
+                {
+                \node[state,\Style] (PP\State) [right=of PP\previous] {PP\State};
+                \draw[->] (PP\previous) to node [above] {\Label} (PP\State);
+                }
+
+            \node[state,initial] (NP0) [below=of PP0]   {NP0};
+            \foreach \State/\Label/\Style [remember=\State as \previous (initially 0)] in {%
+                1/Det/,
+                2/N/accepting%
+                }
+                {
+                \node[state,\Style] (NP\State) [right=of NP\previous] {NP\State};
+                \draw[->] (NP\previous) to node [above] {\Label} (NP\State);
+                }
+                \draw[->, bend right] (NP0) to node [below] {PN} (NP2);
+        \end{tikzpicture}
+    \end{center}
+    %
+    Use our standard algorithm to construct the automaton described by this transition network.
+    Do you notice any inefficiencies?
+    How could one make this automaton more compact?
+\end{exercise}
+
+Deterministic finite-state automata can be minimized automatically, and one is guaranteed to always end up with the smallest possible automaton.
+So if one wishes to convert a transition network into a compact format that is easily parsed, one should proceed as follows: 
+
+\begin{itemize}
+    \item Use the standard algorithm to construct an automaton from the transition network.
+    \item Determinize the automaton (so that parsing can be done in linear time).
+    \item Minimize the automaton (so that the number of spaces is small).
+\end{itemize}
+
+Nonetheless, unless one sets the cut-off point for cycles very low, one will usually end up with an automaton that is so large that it is actually faster to use a parsing algorithm that works directly with transition networks.
