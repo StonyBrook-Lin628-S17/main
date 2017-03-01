@@ -1,0 +1,119 @@
+\chapter{Meta-Rules and Tree Automata}
+\label{cha:metarules}
+
+Do all exercises except 5.4, which is optional.
+
+\begin{exercise}
+    German has a three-way agreement system for adjectives.
+    If an adjective is used predicatively, it always surfaces in its base form without any inflectional affixes.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex \gll Ein\slash Der Bub ist hungrig.\\
+                     a\slash the.\textsc{Masc} boy is hungry\\
+            \ex \gll Eine\slash Die Frau ist hungrig.\\
+                     a\slash the.\textsc{Fem} woman is hungry\\
+            \ex \gll Ein\slash Das Tier ist hungrig.\\
+                     a\slash the.\textsc{Neut} animal is hungry\\
+            \ex \gll Die Buben\slash Frauen\slash Tiere sind hungrig.\\
+                     The.\textsc{pl} boys\slash women\slash animals are hungry\\
+        \end{xlist}
+    \end{exe}
+    %
+    If the adjective is NP-internal, agreement depends on the form of the determiner.
+    With a definite determiner, agreement only indicates number.
+    With an indefinite determiner, agreement is in number and gender.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex der hungrig-e Bub
+            \ex die hungrig-e Frau
+            \ex das hungrig-e Tier
+            \ex die hungrig-en Buben\slash Frauen\slash Tiere
+        \end{xlist}
+        \ex
+        \begin{xlist}
+            \ex ein hungrig-er Bub
+            \ex eine hungrig-e Frau
+            \ex ein hungrig-es Tier
+            \ex $\emptyset$ hungrige-e Buben\slash Frauen\slash Tiere
+        \end{xlist}
+    \end{exe}
+    %
+    Write a context-free grammar (without meta-rules!) that correctly handles these adjectival agreement patterns.
+    Try to make your grammar as small and compact as possible.
+\end{exercise}
+
+\begin{exercise}
+    Continuing the previous exercise, write an equivalent grammar that uses meta-rules (or even meta-meta rules, if you can find a use for them).
+    Is your grammar significantly more succinct than the previous grammar?
+    Why (not)?
+\end{exercise}
+
+\begin{exercise}
+    Still continuing the previous exercise, modify both grammars so that they also accommodate the fact that NP-internal adjectives display case agreement as indicated below.
+    %
+    \begin{center}
+        \begin{tabular}{rcccccc}
+            \toprule
+            \textbf{Case} & \textbf{m indef} & \textbf{m def} & \textbf{f indef} & \textbf{f def} & \textbf{n indef} & \textbf{n def}\\
+            \midrule
+            Nom Sg & -er & -e  & -e  & -e  & -es & -e  \\
+            Gen Sg & -en & -en & -en & -en & -en & -en \\
+            Dat Sg & -en & -en & -en & -en & -en & -en \\
+            Acc Sg & -en & -en & -e  & -e  & -es & -e  \\
+            \midrule
+            Nom Pl & -e  & -en & -e  & -en & -e  & -en \\
+            Gen Pl & -er & -en & -er & -en & -er & -en \\
+            Dat Pl & -en & -en & -en & -en & -en & -en \\
+            Acc Pl & -e  & -en & -e  & -en & -e  & -en \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    %
+    Which one of the two grammars is easier to expand accordingly?
+\end{exercise}
+
+\begin{exercise}
+    Try writing a bottom-up tree automaton that checks agreement for NP-internal adjectives.
+    Is this easier or harder than writing a grammar with meta-rules?
+\end{exercise}
+
+\begin{exercise}
+    In Icelandic, adjectives in predicative position display resolved agreement if the subject is a coordination of multiple DPs:
+    %
+    \begin{enumerate}
+        \item If all conjuncts are masculine, the adjective displays masculine agreement.
+        \item If all conjuncts are feminine, the adjective displays feminine agreement.
+        \item In all other cases, the adjective displays neuter agreement.
+    \end{enumerate}
+    %
+    Write a tree automaton that correctly assigns to each DP its resolved gender.
+    For example, a DP that contains a single masculine noun should be assigned a state for masculine gender, a DP that is a coordination of two feminine DPs should receive feminine, and a DP that is a coordination of a masculine and a feminine noun receives the state for neuter gender.
+    You may assume that all coordinations have a binary branching tree structure:
+    %
+    \begin{center}
+        \begin{forest}
+            [DP
+                [some DP]
+                [D$'$
+                    [D
+                        [and]
+                    ]
+                    [some other DP]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{exercise}
+
+\begin{exercise}
+    This continues the previous exercise.
+    A complicating factor is that Icelandic has \emph{hybrid nouns}, i.e.\ nouns whose syntactic gender differs from their semantic gender.
+    The best-known example is \emph{hetja} `hero', which is syntactically feminine but usually refers to a man and thus is semantically masculine.
+    Another one is \emph{skáld} `poet', which is syntactically neuter but may refer to a man or a woman.
+    Do you need to modify the automaton from the previous exercise to accommodate hybrid agreement?
+    If so, what changes are necessary?
+\end{exercise}
