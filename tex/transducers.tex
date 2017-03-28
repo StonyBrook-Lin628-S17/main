@@ -1,0 +1,147 @@
+\chapter{Tree Transducers}
+\label{cha:transducers}
+
+Do exercises 6.1--6.3, and either 6.4 or 6.5
+
+\begin{exercise}
+    The Person Case Constraint (PCC) is a phenomenon in some languages (e.g.\ French, Catalan, and Slovenian) that forbids certain combinations of direct object (DO) and indirect object (IO) clitics.
+    Which DO-IO combinations are well-formed is contingent on the person specification of the clicits.
+
+    \begin{exe}
+        \ex     {\gll   Roger $^*$\emph{me}\slash \emph{le} \emph{leur} a présenté.\\
+                        Roger \textsc{1sg}\slash  \textsc{3sg.acc} \textsc{3pl.dat} has shown\\
+                 \glt  `Roger has shown me\slash him to them.'}
+    \end{exe}
+
+    There are four attested variants:
+    %
+    \begin{description}
+        \item[S(trong)-PCC] DO must be 3. \cite{Bonet94}
+        \item[U(ltrastrong)-PCC] DO is less local than IO, where 3 is less local than 2, and 2 is less local than 1. \cite{Nevins07}
+        \item[W(eak)-PCC] 3IO combines only with 3DO. \cite{Bonet94}
+        \item[M(e first)-PCC] If IO is 2 or 3, then DO is not 1. \cite{Nevins07}
+    \end{description}
+    %
+    They can be represented more clearly as tables (the diagonal is ignored here, as is commonly done in the literature).
+
+    \begin{table}[tbh]
+    \centering
+    \begin{tabular}{cc}
+        \begin{tabular}{cccc}
+            \textbf{S-PCC}\\
+            IO$\downarrow$/DO$\rightarrow$ & 1 & 2 & 3\\\hline
+            1 & NA & * & $\checkmark$ \\
+            2 & * & NA & $\checkmark$ \\
+            3 & * & * & NA\\
+        \end{tabular}
+        &
+        \begin{tabular}{cccc}
+            \textbf{U-PCC}\\
+            IO$\downarrow$/DO$\rightarrow$ & 1 & 2 & 3\\\hline
+            1 & NA & $\checkmark$ & $\checkmark$ \\
+            2 & * & NA & $\checkmark$ \\
+            3 & * & * & NA\\
+        \end{tabular}
+        \\[12pt]
+        \begin{tabular}{cccc}
+            \textbf{W-PCC}\\
+            IO$\downarrow$/DO$\rightarrow$ & 1 & 2 & 3\\\hline
+            1 & NA & $\checkmark$ & $\checkmark$ \\
+            2 & $\checkmark$ & NA & $\checkmark$ \\
+            3 & * & * & NA\\
+        \end{tabular}
+        &
+        \begin{tabular}{cccc}
+            \textbf{M-PCC}\\
+            IO$\downarrow$/DO$\rightarrow$ & 1 & 2 & 3\\\hline
+            1 & NA & $\checkmark$ & $\checkmark$ \\
+            2 & * & NA & $\checkmark$ \\
+            3 & * & $\checkmark$ & NA\\
+        \end{tabular}
+    \end{tabular}
+    \caption{Attested variants of the PCC}
+    \end{table}
+
+    A lot of ink has been spilled on complicated proposals that try to provide syntax with a mechanism to restrict the co-occurrence of DO and IO clitics like this and to explain why some languages have a PCC.
+    But in fact the existence of PCCs is entirely unsurprising from a computational perspective: the computational apparatus already has everything it needs to produce PCC effects, so why shouldn't they exist in some language?
+
+    Assuming the structure below for DO-IO clitic combinations, give a bottom-up tree automaton that describes one of the four PCC variants.
+    %
+    \begin{center}
+        \begin{forest}
+            [V
+                [DO]
+                [V
+                    [IO]
+                    [V]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+    %
+    Is it difficult to modify your automaton so that it describes some other PCC variant instead?
+    What does this imply for the interplay of theory and data?
+\end{exercise}
+
+\begin{exercise}
+    A lot of recent work in Minmalism worries about the status of labels, in particular whether interior nodes in syntactic trees have any labels.
+    Write a linear tree transducer that maps X$'$-trees (i.e.\ trees where every phrase has a head) to their label-free counterparts.
+    Then write a linear tree transducer that does the reverse, mapping label-free trees to the corresponding labeled trees.
+    Assume that
+    %
+    \begin{itemize}
+        \item lexical heads have features that encode their category and their subcategorization properties,
+        \item every lexical item of category X projects exactly one X$^0$, exactly one X$'$, and at least one XP,
+        \item the heads of adjuncts have a feature that indicates their adjunct status,
+        \item adjuncts can adjoin to adjuncts (as in \emph{very old man}).
+    \end{itemize}
+    %
+    What does the existence of such automatic translation procedures imply for syntactic research on labels?
+\end{exercise}
+
+\begin{exercise}
+    We have seen that displacement can be captured without movement by directly merging phrases in their final landing site.
+    We did this with a cascade of transducers:
+    %
+    \begin{itemize}
+        \item a non-deterministic relabeling that freely inserts movement licensor (+wh,+top,\ldots) and licensee nodes (-wh,-top,\ldots),
+        \item a transducer that filters out trees where a $-f$ mover is in the specificer of a head that does not have a +f feature,
+        \item a transducer that filters out trees where a $-f$ trace is in a position that no $-f$ mover could ever originate from (e.g.\ because the trace is the complement of $v$P but is specified as -wh)
+        \item a transducer whose states consist of two components:
+            \begin{itemize}
+                \item a $0/1$-vector where each position is associated with a specific licensee feature (so that $\tuple{0,1,1}$, for instance, encodes the presence of a topic mover and a case mover, but the absence of a wh-mover),
+                \item the licensee feature of the current node, if there is one.
+            \end{itemize}
+    \end{itemize}
+    %
+    Suppose that we want to also enforce some strong island constraints, e.g.\ the Coordinate Structure Constraint and the Adjunct Island Constraint.
+    Where in this cascade should island constraints be enforced?
+    Can you give an automaton or transducer for the Adjunct Island Constraint?
+    What about the coordinate structure constraint?
+\end{exercise}
+
+\begin{exercise}
+    In English, wh-movement always induces \emph{do}-support unless the moving phrase is a subject.
+    Building on the movement model of the previous exercise, give a transducer that rewrites C-heads as $\emptystring$ or \emph{do} depending on the presence of wh-movement.
+    You may ignore the agreement relation between \emph{do} and the subject.
+\end{exercise}
+
+\begin{exercise}
+    Affix hopping is a particular analyses of the inflection of finite verbs in English.
+    The claim is that the agreement marker resides in T, where it enters a local agreement relation with the subject in Spec,TP.\@
+    The marker then affix hops downwards onto the verb.
+    So \emph{John likes Mary} is underlyingly \emph{John -s like Mary}.
+    If affix hopping is blocked due to an intervening head, the affix is instead realized as an inflected form of \emph{do}.
+    %
+    \begin{exe}
+        \ex
+        \begin{xlist}
+            \ex[] {John likes Mary.}
+            \ex[*] {John not likes Mary.}
+            \ex[] {John does not like Mary.}
+        \end{xlist}
+    \end{exe}
+    %
+    Write a linear bottom-up tree transducer (or a cascade of such transducers) that correctly implements affix hopping.
+    Does the result work similar to the original idea behind affix hopping?
+\end{exercise}
