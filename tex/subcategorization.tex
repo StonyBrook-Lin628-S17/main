@@ -1,0 +1,94 @@
+\chapter{The Loop Hole of Subcategorization}
+\label{cha:subcategorization}
+
+You have to do exercise 7.1, 7.2, and 7.6.
+Do the others until you feel you got the point.
+
+
+These exercises use the following feature notation:
+%
+\begin{center}
+    \begin{tabular}{rl}
+        \fcat{X} & category X\\
+        \fsel{X} & select an X\\
+        \flcr{f} & landing site for f-movement\\
+        \flce{f} & undergoes f-movement
+    \end{tabular}
+\end{center}
+
+\begin{exercise}
+    Draw all the derivation trees that are licensed by the following grammar:
+
+    \begin{center}
+        \begin{tabular}{ll}
+            \mlex{the}{\fsel{N} \fcat{D}}
+            &
+            \mlex{woman}{\fcat{N}}
+            \\
+            \mlex{the}{\fsel{N} \fcat{D} \flce{nom}}
+            &
+            \mlex{women}{\fcat{N}}
+            \\
+            \mlex{the}{\fsel{N} \fcat{D} \flce{top}}
+            &
+            \\
+            &
+            \mlex{like}{\fsel{D} \fsel{D} \fcat{V}}
+            \\
+            \mlex{which}{\fsel{N} \fcat{D} \flce{wh}}
+            &
+            \mlex{likes}{\fsel{D} \fsel{D} \fcat{V}}
+            \\
+            \mlex{which}{\fsel{N} \fcat{D} \flce{nom} \flce{wh}}
+            &
+            \mlex{liked}{\fsel{D} \fsel{D} \fcat{V}}
+            \\
+            &
+            \mlex{$\emptystring$}{\fsel{V} \flcr{nom} \fcat{T}}
+            \\
+            \mlex{$\emptystring$}{\fsel{T} \fcat{C}}
+            &
+            \\
+            \mlex{$\emptystring$}{\fsel{T} \flcr{top} \fcat{C}}
+            &
+            \\
+            \mlex{$\emptystring$}{\fsel{T} \flcr{wh} \fcat{C}}
+            &
+            \\
+            \mlex{do}{\fsel{T} \flcr{wh} \fcat{C}}
+            &
+            \\
+            \mlex{does}{\fsel{T} \flcr{wh} \fcat{C}}
+            &
+        \end{tabular}
+    \end{center}
+
+    Indicate for each derivation tree whether it is well-formed for English.
+\end{exercise}
+
+\begin{exercise}
+    Consider the fragment of the grammar where only subject movement from Spec,VP takes place.
+    Write a tree automaton that enforces subject verb agreement.
+    Compile it into the grammar.
+\end{exercise}
+
+\begin{exercise}
+    Now expand your set such that topicalization is also allowed, and movement may also take place from the object position.
+    Adapt your automaton so that it forbids subject movement from any position but Spec,VP, while still ensuring subject verb agreement.
+    Compile it into the grammar.
+\end{exercise}
+
+\begin{exercise}
+    Now consider the fragment of the grammar where wh-movement always takes place, either from the specifier or the complement of V.
+    Assume that subject movement always originates in Spec,VP.
+    Write a tree automaton that ensures subject verb agreement in this case, and compile it directly into the grammar.
+\end{exercise}
+
+\begin{exercise}
+    Only for those with lots of time on their hand: take the full grammar and refine it so that it only allows for well-formed derivations of English.
+\end{exercise}
+
+\begin{exercise}
+    If the grammar also contains the lexical item \mlex{which}{\fsel{N} \fcat{D}} it becomes possible to generate echo questions and sentences like \emph{who likes what}, but we also ungrammatical sentences like \emph{what does who like}.
+    Write a tree automaton that implements Relativized Minimality.
+\end{exercise}
